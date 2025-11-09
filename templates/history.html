@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    history
+{% endblock %}
+
+{% block main %}
+
+
+
+
+
+{% if record is not none %}
+
+<div class="container mt-4">
+  <h2>HISTORY</h2>
+  <table class="table table-bordered table-hover table-striped">
+    <thead class="thead-dark">
+      <tr>
+
+         <th>#</th>
+        <th>symbol</th>
+        <th>shares</th>
+        <th>price_total</th>
+         <th>timestamp</th>
+          <th>Activity</th>
+      </tr>
+    </thead>
+
+<tbody>
+  {% for row in record %}
+    <tr>
+        <th scope = "row" > {{loop.index}}</th>
+
+            <td>
+           {{row["symbol"]}}
+            </td>
+            <td>
+           {{row["shares"]}}
+            </td>
+            <td>
+            {{row["price"]}}
+            </td>
+            <td>
+           {{ row["timestamp"]}}
+            </td>
+                    {%  if "shares" in row %}
+                      <td>
+                        {% if row["shares"]|int < 0 %}
+                           <span style = "color:green;">  sold  </span>
+                        {% else %}
+                          <span style = "color: blue;"> bought   </span>
+                        {% endif %}
+                      </td>
+                    {% endif %}
+
+
+
+    </tr>
+    {% endfor %}
+<tbody>
+</table>
+</div>
+{% endif %}
+
+
+{% endblock %}

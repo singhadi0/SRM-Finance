@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    quote
+{% endblock %}
+
+{% block main %}
+
+<div  class ="mb-3">
+  <h1>
+  welcome, {{username}}
+  </h1>
+</div>
+
+<div  class ="mb-3" style="text-align: right;"> <h4>TOTAL CASH :  {{ "%.2f" | format(cash) }} $ </h4>  </div>
+
+
+
+<div class ="mb-3" >
+
+{% if record is not none %}
+
+<div class="container mt-4">
+  <h2>Shares bought</h2>
+  <table class="table table-bordered table-hover table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th>#</th>
+        <th>symbol</th>
+        <th>shares</th>
+        <th>price_avg</th>
+        <th>total spent</th>
+      </tr>
+    </thead>
+
+<tbody>
+
+  {% for row in record %}
+    <tr>
+        <th scope = "row" > {{loop.index}}</th>
+        {% for key in row %}
+        <td>
+               {% if key == "price" %}
+                  {{ "%.2f" | format(row["price"])  }}
+                     {% elif key == "total_spent" %}
+
+                   {{ "%.2f" | format(row[key]) }}
+                   {% if row[key] < 0 %}
+                   <span style="color:green"> + {{row[key]*-1 }} </span>
+                   {% endif %}
+               {% else %}
+                  {{ row[key] }}
+               {% endif %}
+        </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+{% endif %}
+
+ </div>
+
+
+  <div class="container mt-3">
+  <h2>Shares price</h2>
+  <table class="table table-bordered table-hover table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th>#</th>
+        <th>name</th>
+        <th>symbol</th>
+        <th>price per share</th>
+      </tr>
+    </thead>
+        <tbody>
+
+            {% for stock in stocks %}
+                <tr>
+                <th scope = "row"> {{loop.index}}</th>
+                  <td>
+                  {{stock["name"]}}
+                  </td>
+                  <td>
+                  {{stock["symbol"]}}
+                  </td>
+                  <td>
+                  {{stock["price"]}}
+                  </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    quoted
+{% endblock %}
+
+{% block main %}
+
+     hello lookup has been shot
+    <h1><div>{{placeholder["name"]}} </div>
+        <div> price : {{placeholder["price"]}} </div>
+        <div> symbol : {{placeholder["symbol"]}} </div> </h1>
+
+
+{% endblock %}
